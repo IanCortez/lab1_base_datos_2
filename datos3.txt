@@ -1,0 +1,9 @@
+Nombre|Apellidos|Carrera|Mensualidad
+Howard|Paredes Zegarra|Computacion|1500.00 
+Penny|Vargas Cordero|Industrial|2550.50
+Sheldon|Cooper Quizpe|Mecatronica|1850.00
+Lidya|Cooper Quizpe|Mecatronica|1850.00
+Thony|Cooper Quizpe|Mecatronica|1850.00
+Carlos|Farfan Poquioma|Civil|2500.45
+Harold|Martell Mendez|Mecanica|1450.8
+Hamilton|Schanewganer|Industrial|1900.5
