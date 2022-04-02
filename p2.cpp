@@ -66,6 +66,7 @@ public:
 			inFile.read(reinterpret_cast<char*>(&temp.ciclo), sizeof(int));
 			inFile.read(reinterpret_cast<char*>(&temp.mensualidad), sizeof(float));
 			inFile.read(reinterpret_cast<char*>(&temp.nextDel), sizeof(int));
+
 			if(temp.nextDel == 0) alumnos.push_back(temp);
 		}
 		inFile.close();
