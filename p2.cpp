@@ -121,22 +121,34 @@ public:
 		if(!file.is_open()) return false;
 
 		// Crear una variable alumno
-		Alumno alumno;
+		Alumno temp;
 
 		// Buscar el alumno en la posicion relativa asignada
 		file.seekg(pos * sizeof(Alumno));
 
 		// Leer y guardar la info del alumno en la variable creada
-		file.read((char*) &alumno, sizeof(Alumno));
+		file.read(reinterpret_cast<char*>(&temp.codigo), CODIGO_SIZE);
+		file.read(reinterpret_cast<char*>(&temp.nombre), NOMBRE_SIZE);
+		file.read(reinterpret_cast<char*>(&temp.apellidos), APELLIDOS_SIZE);
+		file.read(reinterpret_cast<char*>(&temp.carrera), CARRERA_SIZE);
+		file.read(reinterpret_cast<char*>(&temp.ciclo), sizeof(int));
+		file.read(reinterpret_cast<char*>(&temp.mensualidad), sizeof(float));
+		file.read(reinterpret_cast<char*>(&temp.nextDel), sizeof(int));
 
 		// Cambiarlo como final de la Free List
-		alumno.nextDel = -1;
+		temp.nextDel = -1;
 
 		// Guardar la data en el archivo
-		file.write((char*) &alumno, sizeof(Alumno));
+		file.write(reinterpret_cast<char*>(&temp.codigo), CODIGO_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.nombre), NOMBRE_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.apellidos), APELLIDOS_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.carrera), CARRERA_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.ciclo), sizeof(int));
+		file.write(reinterpret_cast<char*>(&temp.mensualidad), sizeof(float));
+		file.write(reinterpret_cast<char*>(&temp.nextDel), sizeof(int));
 
 		// Crear una variable temporal para modificar la Free List
-		Alumno temp = header;
+		temp = header;
 		
 		// Crear una variable temporarl para guardar el final antiguo de la free list
 		Alumno oldEnd;
