@@ -157,11 +157,24 @@ public:
 		while(temp.nextDel != -1){
 			oldEnd = temp;
 			file.seekg(temp.nextDel * sizeof(Alumno));
-			file.read((char*) &temp, sizeof(Alumno));
+			file.read(reinterpret_cast<char*>(&temp.codigo), CODIGO_SIZE);
+			file.read(reinterpret_cast<char*>(&temp.nombre), NOMBRE_SIZE);
+			file.read(reinterpret_cast<char*>(&temp.apellidos), APELLIDOS_SIZE);
+			file.read(reinterpret_cast<char*>(&temp.carrera), CARRERA_SIZE);
+			file.read(reinterpret_cast<char*>(&temp.ciclo), sizeof(int));
+			file.read(reinterpret_cast<char*>(&temp.mensualidad), sizeof(float));
+			file.read(reinterpret_cast<char*>(&temp.nextDel), sizeof(int));
 		}
 
 		// Actualizar el final antiguo con el nuevo final al remover el valor de la lista
 		temp.nextDel = pos;
+		file.write(reinterpret_cast<char*>(&temp.codigo), CODIGO_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.nombre), NOMBRE_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.apellidos), APELLIDOS_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.carrera), CARRERA_SIZE);
+		file.write(reinterpret_cast<char*>(&temp.ciclo), sizeof(int));
+		file.write(reinterpret_cast<char*>(&temp.mensualidad), sizeof(float));
+		file.write(reinterpret_cast<char*>(&temp.nextDel), sizeof(int));
 
 		// Ir a la posicion con el final anterior de la free List
 		file.seekg(oldEnd.nextDel * sizeof(Alumno));
@@ -170,7 +183,13 @@ public:
 		oldEnd.nextDel = pos;
 
 		// Sobre escribir los datos
-		file.write((char*) &temp, sizeof(Alumno));
+		file.write(reinterpret_cast<char*>(&oldEnd.codigo), CODIGO_SIZE);
+		file.write(reinterpret_cast<char*>(&oldEnd.nombre), NOMBRE_SIZE);
+		file.write(reinterpret_cast<char*>(&oldEnd.apellidos), APELLIDOS_SIZE);
+		file.write(reinterpret_cast<char*>(&oldEnd.carrera), CARRERA_SIZE);
+		file.write(reinterpret_cast<char*>(&oldEnd.ciclo), sizeof(int));
+		file.write(reinterpret_cast<char*>(&oldEnd.mensualidad), sizeof(float));
+		file.write(reinterpret_cast<char*>(&oldEnd.nextDel), sizeof(int));
 
 		file.close();
 		
